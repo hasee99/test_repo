@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         MICRO = 'academy'
-       GIT_CRED = credentials('gittoken') //username:password //secretkey
+       GIT_CRED = credentials('git') //username:password //secretkey
     }
     stages {
         stage('Build') {
