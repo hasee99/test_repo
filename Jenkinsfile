@@ -5,7 +5,7 @@ pipeline {
        GIT_CRED = credentials('git') //username:password //secretkey
     }
     stages {
-        stage('Build') {
+        stage('Build0') {
             steps {
                 echo "${USER}"
               //  bat('set')
