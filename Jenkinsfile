@@ -18,8 +18,7 @@ pipeline {
             }
         }
          stage('Push Image') {
-           
-             }
+          
             steps {
                sh 'docker login -u syed0071 -p Syed0071#'
                 sh 'docker push ubuntu_jenkins:latest'
