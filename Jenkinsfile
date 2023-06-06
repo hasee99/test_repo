@@ -1,44 +1,28 @@
 pipeline {
     agent any
-    environment {
-        MICRO = 'academy'
-       GIT_CRED = credentials('git') //username:password //secretkey
-    }
     stages {
-        stage('Build0') {
+        stage('check out') {
             steps {
-                echo "${USER}"
-              //  bat('set')
-              //  sh "printenv | sort"
+              checkout scm
             }
         }
-         stage('Build1') {
+         stage('Build Image') {
             steps {
-                echo "${env.MICRO}"
-              //  def password = ${GIT_CRED_PSW}
-             //  sh 'echo %env.GIT_CRED%'
-             // echo "${password}"
-                echo "${env.GIT_CRED_USR}"
+              sh 'docker build -t ubuntu_jenkins .'
             }
         }
-         stage('Build2') {
-              when{
-                  not {
-                 branch "master"
-                  }
+         stage('Tag Image') {
+           
+            steps {
+               sh 'docker tag ubuntu_jenkins:latest syed0071/ubuntu:latest'
+            }
+        }
+         stage('Push Image') {
+           
              }
             steps {
-                echo 'Building..'
-            }
-        }
-         stage('Build3') {
-             when {
-                 not{
-                branch "devops"
-                 }
-             }
-            steps {
-                 echo "${env.MICRO}"
+               sh 'docker login -u syed0071 -p Syed0071#'
+                sh 'docker push ubuntu_jenkins:latest'
             }
         }
     }
@@ -58,26 +42,3 @@ pipeline {
     }
     
 }
-/*node{
- def remote = [:]
-  remote.name = 'oraclevm'
-  remote.host = '152.67.160.182'
-  remote.user = 'opc'
-  remote.password = 'Muzammil073#'
-  remote.allowAnyHosts = true
-  stage('checkout') {
-           checkout scm
-  }  
- stage('step1'){
-  sshPut remote: remote, from: 'syed00711.sh', into: '/home/opc'
- }
-  stage('step2'){
-     sshScript remote: remote, script: "syed00711.sh"
- }
-  stage('step2'){
- sshCommand remote: remote, command: "pwd"
- }
-  stage('step2'){
- sshRemove remote: remote, path: "/home/opc/syed00711.sh"
- }
-}*/
