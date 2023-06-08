@@ -14,14 +14,14 @@ pipeline {
          stage('Tag Image') {
            
             steps {
-               sh 'docker tag ubuntu_jenkins:latest syed0071/ubuntu:latest'
+               sh 'docker tag ubuntu_jenkins:latest syed0071/ubuntu:1.0.0'
             }
         }
          stage('Push Image') {
           
             steps {
                sh 'docker login -u syed0071 -p Syed0071#'
-                sh 'docker push ubuntu_jenkins:latest'
+                sh 'docker push syed0071/ubuntu_jenkins:1.0.0'
             }
         }
     }
