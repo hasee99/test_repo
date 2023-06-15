@@ -6,22 +6,25 @@ pipeline {
               checkout scm
             }
         }
-         stage('Build Image') {
+        stage('docker compose stop') {
+          
             steps {
-              sh 'sudo docker build -t ubuntu_jenkins .'
+               sh 'docker-compose down'
             }
         }
-         stage('Tag Image') {
-           
+           stage('docker compose start') {
+          
             steps {
-               sh 'sudo docker tag ubuntu_jenkins:latest syed0071/ubuntu:1.0.0'
+               sh 'docker-compose up -d'
             }
         }
-         stage('Push Image') {
+        
+         stage('push image') {
           
             steps {
                sh 'sudo docker login -u syed0071 -p Syed0071#'
-                sh 'sudo docker push syed0071/ubuntu_jenkins:1.0.0'
+                sh 'sudo docker push syed0071/compose_nginx_build:latest'
+               // sh 'sudo docker push syed0071/compose_nginx_build:latest'
             }
         }
     }
