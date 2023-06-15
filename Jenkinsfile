@@ -9,22 +9,22 @@ pipeline {
         stage('docker compose stop') {
           
             steps {
-               sh 'docker-compose down'
+               bat 'docker-compose down'
             }
         }
            stage('docker compose start') {
           
             steps {
-               sh 'docker-compose up -d'
+               bat 'docker-compose up -d'
             }
         }
         
          stage('push image') {
           
             steps {
-               sh 'sudo docker login -u syed0071 -p Syed0071#'
-                sh 'sudo docker push syed0071/compose_nginx_build:latest'
-               // sh 'sudo docker push syed0071/compose_nginx_build:latest'
+               bat 'docker login -u hasee658 -p Nasha@786'
+                bat 'docker push hasee658/compose_nginx_build:latest'
+               // bat 'docker push hasee658/compose_nginx_build:latest'
             }
         }
     }
